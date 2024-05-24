@@ -331,8 +331,8 @@ def procesar_formulario_register():
                 return response
 
             except Exception as e:
-                print(e)
-                return "Este email ya está registrado"
+                
+                return "Este email ya está registrado\n"+e
 
 
 
