@@ -3,7 +3,7 @@ pyjwt
 mysql-connector-python
 tensorflow
 numpy
-cv2
+opencv-python
 criptography
 sendgrid
 itsdangerous
