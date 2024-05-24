@@ -29,9 +29,9 @@ config = {
 }
 serializer = URLSafeTimedSerializer(secret_key)
 size = (200,200)
-ruta_imagenes = r"C:\Users\David\PycharmProjects\first_project\imagenes_usuarios_huesos"
+ruta_imagenes = "./static/imagenes_usuarios_huesos"
 salt = os.getenv("salt")
-model = tf.keras.models.load_model(r'C:\Users\David\PycharmProjects\first_project\modelo_huesos\modelo.h5');
+model = tf.keras.models.load_model('./modelo_huesos/modelo.h5');
 model.compile(optimizer = "adam", loss = "sparse_categorical_crossentropy", metrics=["accuracy"])
 
 opciones = ["Fracturado", "No fracturado"]
