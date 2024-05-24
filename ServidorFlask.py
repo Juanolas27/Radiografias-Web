@@ -330,7 +330,8 @@ def procesar_formulario_register():
                 response.set_cookie('token', token, max_age=500, httponly=True)
                 return response
 
-            except:
+            except Exception as e:
+                print(e)
                 return "Este email ya está registrado"
 
 
