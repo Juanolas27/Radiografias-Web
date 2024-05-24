@@ -1,0 +1,27 @@
+{% include "mis_assets/header.html" %}
+
+    <section class="overflow-hidden flex items-center justify-center h-screen w-screen bg-cover bg-center relative" style="background-image: linear-gradient(to top, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2)), url('https://alternativaecologica.com/wp-content/uploads/2015/09/postreciclajeradiograf%C3%ADa-2712x1356.jpg')">
+        <div class="w-1/2 h-1/2">
+            <div class="flex w-1/2">
+                <a href="http://localhost:5000/register" class="text-white border-2 border-white rounded p-2">Register</a>
+                <a href="http://localhost:5000/login" class="text-white bg-blue-700 border-2 border-white rounded p-2">Login</a>
+            </div>
+            <form method="post" action="http://localhost:5000/login" class="flex flex-col p-4 w-full h-full rounded border-2 border-white bg-black bg-opacity-60">
+                <h1 class="text-white">Login</h1>
+                <div class="relative mt-4 z-0 w-full mb-5 group">
+                  <input type="email" name="email" id="floating_email" class="block py-2.5 px-0 w-full text-sm text-gray-200 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                  <label for="floating_email" class="peer-focus:font-medium absolute text-sm text-gray-200 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email address</label>
+                </div>
+                <div class="relative z-0 w-full mb-5 group">
+                  <input type="password" name="password" id="floating_password" class="block py-2.5 px-0 w-full text-sm text-gray-200 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                  <label for="floating_password" class="peer-focus:font-medium absolute text-sm text-gray-200 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password</label>
+                </div>
+                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+            </form>
+            <form class="rounded border-2 border-white bg-black bg-opacity-60" method="get" action="http://localhost:5000/forgot">
+                <button type="sumbit" class="text-blue-500 font-bold">Forgot password?</button>
+            </form>
+        </div>
+    </section>
+
+{% include "mis_assets/footer.html" %}

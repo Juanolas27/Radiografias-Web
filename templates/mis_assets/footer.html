@@ -1,0 +1,63 @@
+
+</body>
+</html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jsonwebtoken/8.5.1/jsonwebtoken.min.js"></script>
+<script>
+    document.getElementById("ia")? document.getElementById("ia").addEventListener("click", () =>{
+        window.location.href = "http://localhost:5000/ia"
+    }):null
+    document.getElementById("inicio")? document.getElementById("inicio").addEventListener("click", () =>{
+        window.location.href = "http://localhost:5000"
+    }):null
+    document.getElementById("contacto")? document.getElementById("contacto").addEventListener("click", () =>{
+        window.location.href = "http://localhost:5000/contacto"
+    }):null
+    document.getElementById("register")? document.getElementById("register").addEventListener("click", () =>{
+        window.location.href = "http://localhost:5000/register"
+    }):null
+    document.getElementById("logout")? document.getElementById("logout").addEventListener("click", () =>{
+        window.location.href = "http://localhost:5000/logout"
+    }):null
+    document.getElementById("historico")? document.getElementById("historico").addEventListener("click", () =>{
+        window.location.href = "http://localhost:5000/historico"
+    }):null
+    document.getElementById('imagen_cliente')? document.getElementById('imagen_cliente').addEventListener('change', function() {
+    var file = this.files[0];
+    var imagenPrevia = document.getElementById('imagen_consulta');
+
+       if (file) {
+
+       var lector = new FileReader();
+
+        lector.onload = function(e) {
+            imagenPrevia.src = e.target.result;
+            imagenPrevia.style.display = 'block';
+        }
+         var formData = new FormData(); // Crea un objeto FormData
+         formData.append('file', file); // Agrega el archivo al objeto FormData
+        lector.readAsDataURL(file);
+         var xhr = new XMLHttpRequest(); // Crea una nueva solicitud XHR
+         xhr.open('POST', 'http://localhost:5000/imagen'); // Especifica la ruta del servidor
+         xhr.onload = function() {
+             if (xhr.status === 200) {
+                 console.log('El archivo se ha enviado correctamente.');
+                 const respuesta = xhr.responseText
+                 if(respuesta == "Fracturado"){
+                    document.getElementById("fracturado_o_no").style.backgroundColor = "#dc2626"
+                 }
+                 else if (respuesta == "No fracturado"){
+                    document.getElementById("fracturado_o_no").style.backgroundColor = "#84cc16"
+                 }
+                 document.getElementById("fracturado_o_no").innerHTML = respuesta
+                 console.log(respuesta)
+                 // Aquí puedes hacer algo en la interfaz de usuario si la solicitud se procesa con éxito
+             } else {
+                 console.error('Error al enviar el archivo al servidor.');
+                 // Aquí puedes manejar errores de la solicitud
+             }
+     };
+     }
+     xhr.send(formData); // Envía la solicitud al servidor con el objeto FormData
+ }) : null;
+
+</script>

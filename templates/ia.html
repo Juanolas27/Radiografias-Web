@@ -1,0 +1,25 @@
+{% include "mis_assets/header.html" %}
+
+    <section class="overflow-hidden h-screen flex items-center justify-center w-screen bg-cover bg-center relative" style="background-image: linear-gradient(to top, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2)), url('https://alternativaecologica.com/wp-content/uploads/2015/09/postreciclajeradiograf%C3%ADa.jpg')">
+        {% include "mis_assets/navbar.html" %}
+        <div class="flex w-4/5 border-2 border-white bg-white bg-opacity-60  items-center justify-around h-4/5">
+            <div class="flex items-center justify-center w-2/5 h-4/5">
+                <label for="imagen_cliente" class="flex flex-col items-center justify-center w-full h-full border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                    <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                        <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+                        </svg>
+                        <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span></p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400">PNG or JPG</p>
+                    </div>
+                    <input id="imagen_cliente" type="file" class="hidden" />
+                </label>
+            </div>
+            <div class="flex items-center flex-col justify-around w-1/4 h-auto rounded bg-white">
+                <img class="w-full relative top-0" id="imagen_consulta" src="">
+                <p class="w-full h-10 text-white text-center font-bold text-xl" id="fracturado_o_no"></p>
+            </div>
+        </div>
+    </section>
+
+{% include "mis_assets/footer.html" %}
