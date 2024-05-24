@@ -37,7 +37,7 @@
          formData.append('file', file); // Agrega el archivo al objeto FormData
         lector.readAsDataURL(file);
          var xhr = new XMLHttpRequest(); // Crea una nueva solicitud XHR
-         xhr.open('POST', 'http://localhost:5000/imagen'); // Especifica la ruta del servidor
+         xhr.open('POST', 'https://radiografias-web.onrender.com/imagen'); // Especifica la ruta del servidor
          xhr.onload = function() {
              if (xhr.status === 200) {
                  console.log('El archivo se ha enviado correctamente.');
