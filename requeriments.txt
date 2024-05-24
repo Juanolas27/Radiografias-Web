@@ -9,3 +9,4 @@ sendgrid
 itsdangerous
 flask_cors
 python-dotenv
+gunicorn
