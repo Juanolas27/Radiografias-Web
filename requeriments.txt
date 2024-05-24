@@ -1,0 +1,11 @@
+flask
+pyjwt
+mysql-connector-python
+tensorflow
+numpy
+cv2
+criptography
+sendgrid
+itsdangerous
+flask_cors
+python-dotenv
