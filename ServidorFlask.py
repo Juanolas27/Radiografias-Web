@@ -262,10 +262,12 @@ def procesar_imagen():
 
     try:
         response = requests.post(url_image, files={"source": file}, data={"key": api_key_image})
-
+        response_data = response.json()
         # Asegúrate de manejar la respuesta adecuadamente
         if response.status_code == 200:
-            return jsonify(response.json()), 200
+            print('Imagen subida con éxito!')
+            print('URL de la imagen:', response_data['image']['url'])
+            return render_template("ia.html")
         else:
             return f'Error en la solicitud externa: {response.status_code} {response.text}', response.status_code
 
