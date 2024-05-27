@@ -267,7 +267,7 @@ def procesar_imagen():
 
     except Exception as e:
       print(e)
-        return e
+        return "Algo ha ido mal"
 
 
     #ruta = './static/imagenes_usuarios/' + file.filename
