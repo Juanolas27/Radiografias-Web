@@ -266,8 +266,35 @@ def procesar_imagen():
         # Asegúrate de manejar la respuesta adecuadamente
         if response.status_code == 200:
             print('Imagen subida con éxito!')
+            direccion = response_data['image']['url']
             print('URL de la imagen:', response_data['image']['url'])
-            return render_template("ia.html")
+            imagen_procesada = cv2.resize(cv2.cvtColor(cv2.imread(file), cv2.COLOR_BGR2GRAY), size) / 255.0
+            imagen_procesada = np.array(imagen_procesada)
+            imagen_procesada = imagen_procesada.reshape(-1, 200, 200, 1)
+            respuesta = np.argmax(model.predict(imagen_procesada))
+            with mysql.connector.connect(**config) as conexion:
+                # Ejecutar operaciones en la base de datos
+                cursor = conexion.cursor()
+
+                try:
+                    query = "select * from users where contrasena = %s"
+                    data = (usuario["password"],)
+                    cursor.execute(query, data)
+                    x = cursor.fetchall()
+                    query = "INSERT INTO consultas (id_usuario, img, commentary) VALUES (%s, %s, %s)"
+                    data = (x[0][0], direccion, opciones[respuesta])
+                    cursor.execute(query, data)
+                    conexion.commit()
+                    return opciones[respuesta]
+
+                except Exception as e:
+
+                    # En caso de error, imprimir el error y revertir la transacción
+
+                    print(f"Error al ejecutar la consulta: {e}")
+
+                    conexion.rollback()
+            return opciones[respuesta]
         else:
             return f'Error en la solicitud externa: {response.status_code} {response.text}', response.status_code
 
@@ -276,35 +303,7 @@ def procesar_imagen():
         return 'Error al procesar la imagen.', 500
 
 
-    #ruta = './static/imagenes_usuarios/' + file.filename
-    #file.save(ruta)
-    #imagen_procesada = cv2.resize(cv2.cvtColor(cv2.imread(ruta), cv2.COLOR_BGR2GRAY), size) / 255.0
-    #imagen_procesada = np.array(imagen_procesada)
-    #imagen_procesada = imagen_procesada.reshape(-1, 200, 200, 1)
-    #respuesta = np.argmax(model.predict(imagen_procesada))
-    #with mysql.connector.connect(**config) as conexion:
-    #    # Ejecutar operaciones en la base de datos
-    #    cursor = conexion.cursor()
-#
-    #    try:
-    #        query = "select * from users where contrasena = %s"
-    #        data = (usuario["password"],)
-    #        cursor.execute(query, data)
-    #        x = cursor.fetchall()
-    #        query = "INSERT INTO consultas (id_usuario, img, commentary) VALUES (%s, %s, %s)"
-    #        data = (x[0][0], ruta, opciones[respuesta])
-    #        cursor.execute(query, data)
-    #        conexion.commit()
-    #        return opciones[respuesta]
-#
-    #    except Exception as e:
-#
-    #        # En caso de error, imprimir el error y revertir la transacción
-#
-    #        print(f"Error al ejecutar la consulta: {e}")
-#
-    #        conexion.rollback()
-    #return opciones[respuesta]
+
 
 
 
