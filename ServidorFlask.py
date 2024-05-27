@@ -268,6 +268,7 @@ def procesar_imagen():
             print('Imagen subida con éxito!')
             direccion = response_data['image']['url']
             print('URL de la imagen:', response_data['image']['url'])
+            print(file.read())
             file_bytes = np.frombuffer(file.read(), np.uint8)
             img = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
 
