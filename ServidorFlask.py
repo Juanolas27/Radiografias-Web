@@ -262,9 +262,11 @@ def procesar_imagen():
 
     try:
         response = requests.post(url_image, files={"source": file}, data={"key": api_key_image})
+        print(response)
         return response
 
     except Exception as e:
+      print(e)
         return e
 
 
