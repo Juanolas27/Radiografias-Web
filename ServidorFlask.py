@@ -216,7 +216,7 @@ def procesar_forgot():
                 token = serializer.dumps(data, salt=salt)
                 print("token="+token)
 
-                base_url = 'http://127.0.0.1:5000/remake'
+                base_url = 'https://radiografias-web.onrender.com/remake'
                 url = f"{base_url}?token={token}"
 
                 sg = sendgrid.SendGridAPIClient(
