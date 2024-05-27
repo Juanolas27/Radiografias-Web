@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, make_response, redirect, url_for
+from flask import Flask, request, render_template, make_response, redirect, url_for, jsonify
 import jwt
 import mysql.connector
 import tensorflow as tf
@@ -262,12 +262,16 @@ def procesar_imagen():
 
     try:
         response = requests.post(url_image, files={"source": file}, data={"key": api_key_image})
-        print(response)
-        return response
+
+        # Asegúrate de manejar la respuesta adecuadamente
+        if response.status_code == 200:
+            return jsonify(response.json()), 200
+        else:
+            return f'Error en la solicitud externa: {response.status_code} {response.text}', response.status_code
 
     except Exception as e:
-      print(e)
-        return "Algo ha ido mal", 400
+        print(f'Error al procesar la imagen: {str(e)}')
+        return 'Error al procesar la imagen.', 500
 
 
     #ruta = './static/imagenes_usuarios/' + file.filename
