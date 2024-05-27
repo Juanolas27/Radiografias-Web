@@ -10,3 +10,4 @@ itsdangerous
 flask_cors
 python-dotenv
 gunicorn
+requests

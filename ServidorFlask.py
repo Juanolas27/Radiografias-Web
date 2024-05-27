@@ -1,13 +1,10 @@
 from flask import Flask, request, render_template, make_response, redirect, url_for
-from datetime import datetime, timedelta
 import jwt
-from flask_cors import CORS
 import mysql.connector
 import tensorflow as tf
 import numpy as np
 import cv2
 import os
-import requests
 from functools import wraps
 from cryptography.fernet import Fernet
 import sendgrid
@@ -15,6 +12,8 @@ from sendgrid.helpers.mail import Mail
 from itsdangerous import URLSafeTimedSerializer, BadSignature, SignatureExpired
 from flask_cors import CORS
 from dotenv import load_dotenv
+import requests
+
 
 load_dotenv()
 app = Flask(__name__)
