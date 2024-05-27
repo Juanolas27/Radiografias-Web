@@ -268,8 +268,18 @@ def procesar_imagen():
             print('Imagen subida con éxito!')
             direccion = response_data['image']['url']
             print('URL de la imagen:', response_data['image']['url'])
-            imagen_procesada = cv2.resize(cv2.cvtColor(cv2.imread(file), cv2.COLOR_BGR2GRAY), size) / 255.0
-            imagen_procesada = np.array(imagen_procesada)
+            file_bytes = np.frombuffer(file.read(), np.uint8)
+            img = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
+
+            if img is None:
+                return 'No se pudo leer la imagen.', 400
+
+            # Convertir la imagen a escala de grises
+            img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+            # Redimensionar la imagen
+            size = (100, 100)  # Ajusta el tamaño según tus necesidades
+            imagen_procesada = cv2.resize(img_gray, size) / 255.0
             imagen_procesada = imagen_procesada.reshape(-1, 200, 200, 1)
             respuesta = np.argmax(model.predict(imagen_procesada))
             with mysql.connector.connect(**config) as conexion:
