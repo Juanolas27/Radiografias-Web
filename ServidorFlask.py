@@ -7,6 +7,7 @@ import tensorflow as tf
 import numpy as np
 import cv2
 import os
+import requests
 from functools import wraps
 from cryptography.fernet import Fernet
 import sendgrid
@@ -14,9 +15,8 @@ from sendgrid.helpers.mail import Mail
 from itsdangerous import URLSafeTimedSerializer, BadSignature, SignatureExpired
 from flask_cors import CORS
 from dotenv import load_dotenv
+
 load_dotenv()
-
-
 app = Flask(__name__)
 CORS(app)
 secret_key = 'claveSecreta'
@@ -31,9 +31,10 @@ serializer = URLSafeTimedSerializer(secret_key)
 size = (200,200)
 ruta_imagenes = "./static/imagenes_usuarios_huesos"
 salt = os.getenv("salt")
-model = tf.keras.models.load_model('./modelo_huesos/modelo.h5');
+model = tf.keras.models.load_model('./modelo_huesos/modelo.h5')
 model.compile(optimizer = "adam", loss = "sparse_categorical_crossentropy", metrics=["accuracy"])
-
+url_image = os.getenv("url_image")
+api_key_image = os.getenv("api_key_image")
 opciones = ["Fracturado", "No fracturado"]
 
 def verificar_cookies(func):
@@ -258,6 +259,14 @@ def procesar_imagen():
 
     usuario = jwt.decode(token_usuario, secret_key, algorithms=["HS256"])
     # Aquí puedes procesar el archivo, por ejemplo, guardarlo en el servidor
+    try:
+        response = requests.post(url_image, files={"source": file}, data={"key": api_key_image})
+        return response
+
+    except Exception as e:
+        return e
+
+
     ruta = './static/imagenes_usuarios/' + file.filename
     file.save(ruta)
     imagen_procesada = cv2.resize(cv2.cvtColor(cv2.imread(ruta), cv2.COLOR_BGR2GRAY), size) / 255.0
@@ -275,7 +284,7 @@ def procesar_imagen():
             x = cursor.fetchall()
             query = "INSERT INTO consultas (id_usuario, img, commentary) VALUES (%s, %s, %s)"
             data = (x[0][0], ruta, opciones[respuesta])
-            cursor.execute(query,data)
+            cursor.execute(query, data)
             conexion.commit()
             return opciones[respuesta]
 
@@ -331,7 +340,6 @@ def procesar_formulario_register():
                 return response
 
             except Exception as e:
-                
                 return "Este email ya está registrado\n"+e
 
 
