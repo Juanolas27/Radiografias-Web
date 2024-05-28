@@ -11,3 +11,4 @@ flask_cors
 python-dotenv
 gunicorn
 requests
+Pillow
