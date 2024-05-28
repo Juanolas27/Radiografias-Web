@@ -268,7 +268,7 @@ def procesar_imagen():
             print('Imagen subida con éxito!')
             direccion = response_data['image']['url']
             print('URL de la imagen:', response_data['image']['url'])
-            print(np.frombuffer(bytes(requests.get(response_data['image']['url']).content)))
+            print(np.frombuffer(bytes(requests.get(response_data['image']['url']).content), np.uint8))
             imagen_procesada = cv2.resize(cv2.cvtColor(np.frombuffer(bytes(requests.get(response_data['image']['url']).content)), cv2.COLOR_BGR2GRAY), size) / 255.0
             imagen_procesada = np.array(imagen_procesada)
             imagen_procesada = imagen_procesada.reshape(-1, 200, 200, 1)
