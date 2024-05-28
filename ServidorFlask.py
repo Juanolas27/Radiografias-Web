@@ -13,7 +13,8 @@ from itsdangerous import URLSafeTimedSerializer, BadSignature, SignatureExpired
 from flask_cors import CORS
 from dotenv import load_dotenv
 import requests
-
+from PIL import Image
+import io
 
 load_dotenv()
 app = Flask(__name__)
@@ -268,9 +269,11 @@ def procesar_imagen():
             print('Imagen subida con éxito!')
             direccion = response_data['image']['url']
             print('URL de la imagen:', response_data['image']['url'])
-            imagen = np.frombuffer(bytes(requests.get(response_data['image']['url']).content), np.uint8)
-            imagen = cv2.imdecode(imagen, cv2.IMREAD_REDUCED_GRAYSCALE_8)
-            imagen_procesada = cv2.resize(imagen , size) / 255.0
+            image_pil = Image.open(io.BytesIO(requests.get(response_data['image']['url']).content))
+            image_pil_resized = image_pil.resize((200, 200), Image.Resampling.LANCZOS)
+            imagen = np.array(image_pil_resized)
+            print(imagen)
+            imagen_procesada = cv2.resize(imagen, size) / 255.0
             imagen_procesada = np.array(imagen_procesada)
             imagen_procesada = imagen_procesada.reshape(-1, 200, 200, 1)
             respuesta = np.argmax(model.predict(imagen_procesada))
