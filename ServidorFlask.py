@@ -268,10 +268,10 @@ def procesar_imagen():
             print('Imagen subida con éxito!')
             direccion = response_data['image']['url']
             print('URL de la imagen:', response_data['image']['url'])
-            imagen = np.frombuffer(bytes(requests.get(response_data['image']['url']).content), np.uint8), cv2.IMREAD_COLOR
-            print( cv2.imdecode(imagen))
-            imagen = cv2.imdecode(imagen)
-            imagen_procesada = cv2.resize(cv2.cvtColor(imagen , cv2.COLOR_BGR2GRAY), size) / 255.0
+            imagen = np.frombuffer(bytes(requests.get(response_data['image']['url']).content), np.uint8)
+            print(cv2.imdecode(imagen, cv2.COLOR_BGR2GRAY))
+            imagen = cv2.imdecode(imagen, cv2.COLOR_BGR2GRAY)
+            imagen_procesada = cv2.resize(imagen , size) / 255.0
             imagen_procesada = np.array(imagen_procesada)
             imagen_procesada = imagen_procesada.reshape(-1, 200, 200, 1)
             respuesta = np.argmax(model.predict(imagen_procesada))
